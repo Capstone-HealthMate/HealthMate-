@@ -21,11 +21,6 @@ const Article = database.define("Article", {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  time: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
   category: {
     type: DataTypes.STRING,
     allowNull: false,

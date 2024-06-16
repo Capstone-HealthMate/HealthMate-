@@ -50,7 +50,7 @@ const Navbar = () => {
             <span className="text-2xl font-bold text-white">HealthMate</span>
           </div>
           <div className="hidden md:flex space-x-6 text-white">
-            <Link to="#" className="hover:text-gray-300">
+            <Link to="/calculator" className="hover:text-gray-300">
               Calculator
             </Link>
             <Link to="/" className="hover:text-gray-300">
@@ -59,8 +59,8 @@ const Navbar = () => {
             <Link to="/article" className="hover:text-gray-300">
               Article
             </Link>
-            <Link to="/disscus" className="hover:text-gray-300">
-              Disscus
+            <Link to="/discuss" className="hover:text-gray-300">
+              Discuss
             </Link>
             <Link to="#" className="hover:text-gray-300">
               Contact

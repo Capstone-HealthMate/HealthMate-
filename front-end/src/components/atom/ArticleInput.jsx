@@ -2,21 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import baseUrl from "../../utils/config"; 
+import baseUrl from "../../utils/config";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const ArticleInput = () => {
   const [articleData, setArticleData] = useState({
     title: "",
     content: "",
     image: null,
-    time: "",
     category: "",
   });
 
   const [editMode, setEditMode] = useState(false);
   const [editArticleId, setEditArticleId] = useState(null);
   const [articles, setArticles] = useState([]);
+  const navigate = useNavigate();
 
   const fetchArticles = async () => {
     try {
@@ -25,7 +26,11 @@ const ArticleInput = () => {
       });
       setArticles(response.data);
     } catch (error) {
-      console.error("Error fetching articles:", error);
+      if (error.response && error.response.status === 401) {
+        navigate("/login");
+      } else {
+        console.error("Error fetching articles:", error);
+      }
     }
   };
 
@@ -39,7 +44,6 @@ const ArticleInput = () => {
     formData.append("title", articleData.title);
     formData.append("content", articleData.content);
     formData.append("image", articleData.image);
-    formData.append("time", articleData.time);
     formData.append("category", articleData.category);
 
     try {
@@ -69,7 +73,6 @@ const ArticleInput = () => {
         title: "",
         content: "",
         image: null,
-        time: "",
         category: "",
       });
       setEditMode(false);
@@ -85,7 +88,7 @@ const ArticleInput = () => {
     const { name, value } = event.target;
     setArticleData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: name === "content" ? value.replace(/\n/g, "<br />") : value,
     }));
   };
 
@@ -112,7 +115,6 @@ const ArticleInput = () => {
       title: article.title,
       content: article.content,
       image: article.image,
-      time: article.time,
       category: article.category,
     });
     setEditArticleId(article.id);
@@ -144,6 +146,7 @@ const ArticleInput = () => {
               onChange={handleInputChange}
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              rows={6} 
             />
           </div>
           {editMode && articleData.image && (
@@ -165,17 +168,6 @@ const ArticleInput = () => {
             />
           </div>
           <div>
-            <input
-              type="text"
-              name="time"
-              placeholder="Time in minutes"
-              value={articleData.time}
-              onChange={handleInputChange}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-            />
-          </div>
-          <div>
             <select
               name="category"
               value={articleData.category}
@@ -184,12 +176,16 @@ const ArticleInput = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
             >
               <option value="">Select Category</option>
-              <option value="Western">Western</option>
-              <option value="Asian">Asian</option>
-              <option value="Italian">Italian</option>
-              <option value="Mexican">Mexican</option>
-              <option value="Indian">Indian</option>
-              <option value="French">French</option>
+              <option value="Food">Food</option>
+              <option value="Diet">Diet</option>
+              <option value="Mental Health">Mental Health</option>
+              <option value="Medical">Medical</option>
+              <option value="Lifestyle">Lifestyle</option>
+              <option value="Family Health">Family Health</option>
+              <option value="Natural">Natural</option>
+              <option value="Tips">Tips</option>
+              <option value="News">News</option>
+              <option value="Reviews">Reviews</option>
             </select>
           </div>
           <button
@@ -209,7 +205,6 @@ const ArticleInput = () => {
               <th className="px-4 py-2 border-b">Title</th>
               <th className="px-4 py-2 border-b">Content</th>
               <th className="px-4 py-2 border-b">Image</th>
-              <th className="px-4 py-2 border-b">Time</th>
               <th className="px-4 py-2 border-b">Category</th>
               <th className="px-4 py-2 border-b">Actions</th>
             </tr>
@@ -230,7 +225,6 @@ const ArticleInput = () => {
                     className="w-16 h-16 object-cover"
                   />
                 </td>
-                <td className="px-4 py-2 border-b">{article.time}</td>
                 <td className="px-4 py-2 border-b">{article.category}</td>
                 <td className="px-4 py-2 border-b">
                   <button

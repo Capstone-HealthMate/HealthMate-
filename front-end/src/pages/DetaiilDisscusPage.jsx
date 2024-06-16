@@ -71,11 +71,11 @@ export default function DetaiilDisscusPage() {
             <CommentList comments={commentList}></CommentList>
           </div>
         )}
-        <div className="fixed flex items-center gap-4 left-10 bottom-10">
+        <div className="flexible flex items-center gap-4 w-full p-4">
           <input
             type="text"
             placeholder="Type here"
-            className="w-full max-w-xs input input-bordered"
+            className="flex-grow input input-bordered"
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />

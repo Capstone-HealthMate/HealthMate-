@@ -1,81 +1,86 @@
-import React, { useState } from 'react';
-import { FaRegHeart, FaHeart } from 'react-icons/fa';
-import { FaRegCommentAlt } from "react-icons/fa";
-import { useNavigate } from 'react-router';
+import React, { useState, useEffect } from "react";
+import { FaRegHeart, FaHeart, FaRegCommentAlt } from "react-icons/fa";
+import { useNavigate } from "react-router";
+import Avatar from "./Avatar";
+import baseUrl from "../../utils/config";
 
 export default function DiscussItem({
-    id,
-    owner,
-    likeDisscus,
-    content,
-    upVotesBy = [],
-    authUser,
-    totalDisscus,
-    createdAt,
-    like
+  id,
+  owner,
+  likeCount,
+  commentCount,
+  content,
+  upVotesBy = [],
+  authUser,
+  totalDisscus,
+  createdAt,
 }) {
-    const [isLiked, setIsLiked] = useState(true);
-    const navigate = useNavigate()
-    const handleLikeClick = () => {
-        if (isLiked) {
-            neutralComment(id);
-        } else {
-            likeDisscus(id);
-        }
-        setIsLiked(!isLiked);
-    };
+  // Check if the discussion is liked by the current authenticated user
+  const isLikedByCurrentUser = upVotesBy.includes(authUser);
+  const [isLiked, setIsLiked] = useState(false);
+  const [like, setLike] = useState(0);
 
-    const handleDetailClick = () =>{
-        navigate(`/disscus/${id}`)
+  const navigate = useNavigate();
+
+  const handleLikeClick = async () => {
+    await fetch(`${baseUrl}/likes/${id}`, {
+      method: "POST",
+      credentials: "include",
+    });
+    setIsLiked(true);
+    setLike(like + 1);
+  };
+
+  useEffect(() => {
+    if (likeCount) {
+      setLike(likeCount);
     }
+  }, [likeCount]);
 
-    return (
-        <>
+  useEffect(() => {
+    if (isLikedByCurrentUser === 1) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  }, [isLikedByCurrentUser]);
 
-            <div className="flex flex-col items-start justify-start gap-4 py-6 cursor-pointer" onClick={handleDetailClick}>
-                {/* image */}
-                <div className="flex items-center gap-3">
-                    <img
-                        className="w-12 h-12 rounded-full"
-                        src={owner.avatar}
-                        alt={`avatar-${owner.name}`}
-                    />
-                    <div className='flex flex-col items-start '>
-                        <p className="text-lg font-semibold text-gray-900">
-                            {owner.name}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                            Anggota
-                        </p>
-                    </div>
-                </div>
-                {/* body */}
-                <p className='text-lg text-left'>{content}</p>
+  const handleDetailClick = () => {
+    navigate(`/discuss/${id}`);
+  };
 
-                <div className="flex gap-3  ">
+  return (
+    <div
+      className="flex flex-col items-start justify-start gap-4 py-6 cursor-pointer"
+      onClick={handleDetailClick}
+    >
+      {/* image */}
+      <div className="flex items-center gap-3">
+        <Avatar name={owner} />
+        <div className="flex flex-col items-start ">
+          <p className="text-lg font-semibold text-gray-900">{owner}</p>
+          <p className="text-sm text-gray-500">Anggota</p>
+        </div>
+      </div>
+      {/* body */}
+      <p className="text-lg text-left">{content}</p>
 
-                    {/* like */}
-                    <div className="flex items-center gap-1">
-
-                        <button type="button" aria-label="like" onClick={handleLikeClick}>
-                            {isLiked ? <FaHeart style={{ color: 'red' }} /> : <FaRegHeart />}
-                        </button>
-                        {' '}
-                        {upVotesBy.length}
-
-                    </div>
-                    {/* commnet */}
-                    <div className="flex items-center gap-1">
-
-                        <button type="button" aria-label="comment">
-                            <FaRegCommentAlt />
-                        </button>
-                        {totalDisscus}
-
-                    </div>
-                </div>
-
-            </div>
-        </>
-    );
+      <div className="flex gap-3">
+        {/* like */}
+        <div className="flex items-center gap-1">
+          <button type="button" aria-label="like" onClick={handleLikeClick}>
+            {isLiked ? <FaHeart style={{ color: "red" }} /> : <FaRegHeart />}
+          </button>
+          {like}
+        </div>
+        {/* comment */}
+        <div className="flex items-center gap-1">
+          <button type="button" aria-label="comment">
+            <FaRegCommentAlt />
+          </button>
+          {commentCount}
+        </div>
+      </div>
+    </div>
+  );
 }

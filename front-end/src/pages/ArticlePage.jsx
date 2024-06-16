@@ -44,17 +44,17 @@ function ArticlePage() {
               content={articles[0].content}
               image={articles[0].image}
             />
-            <ArticleList articles={articles.slice(1)} />
+            {user && (
+              <button
+                disabled={!user.authenticated}
+                className="w-full mb-4 mt-4 py-2 px-4 bg-gray-900 text-white rounded hover:bg-gray-700 disabled:bg-gray-400"
+                onClick={() => (window.location.href = "/article/add")}
+              >
+                Add Article +
+              </button>
+            )}
+            <ArticleList articles={articles.slice(0)} />
           </>
-        )}
-        {user && (
-          <button
-            disabled={!user.authenticated}
-            className="w-full mb-4 mt-4 py-2 px-4 bg-gray-900 text-white rounded hover:bg-gray-700 disabled:bg-gray-400"
-            onClick={() => (window.location.href = "/article/add")}
-          >
-            Add Article +
-          </button>
         )}
       </section>
       <Footer />
