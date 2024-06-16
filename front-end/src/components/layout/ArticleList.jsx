@@ -5,8 +5,8 @@ import ArticleItem from "../atom/ArticleItem";
 const ArticleList = ({ articles }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
   };
 
   const filteredArticles = selectedCategory === "all" ? articles : articles.filter(article => article.category.toLowerCase() === selectedCategory);
@@ -14,72 +14,23 @@ const ArticleList = ({ articles }) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-center mb-6">
-        <button
-          onClick={() => handleCategoryChange("all")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "all" ? "bg-gray-300" : ""}`}
+        <select
+          value={selectedCategory}
+          onChange={handleCategoryChange}
+          className="px-4 py-2 rounded-full border border-gray-300 focus:outline-none"
         >
-          All
-        </button>
-        <button
-          onClick={() => handleCategoryChange("food")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "food" ? "bg-gray-300" : ""}`}
-        >
-          Food
-        </button>
-        <button
-          onClick={() => handleCategoryChange("diet")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "diet" ? "bg-gray-300" : ""}`}
-        >
-          Diet
-        </button>
-        <button
-          onClick={() => handleCategoryChange("mental health")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "mental health" ? "bg-gray-300" : ""}`}
-        >
-          Mental Health
-        </button>
-        <button
-          onClick={() => handleCategoryChange("medical")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "medical" ? "bg-gray-300" : ""}`}
-        >
-          Medical
-        </button>
-        <button
-          onClick={() => handleCategoryChange("lifestyle")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "lifestyle" ? "bg-gray-300" : ""}`}
-        >
-          Lifestyle
-        </button>
-        <button
-          onClick={() => handleCategoryChange("family health")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "family health" ? "bg-gray-300" : ""}`}
-        >
-          Family Health
-        </button>
-        <button
-          onClick={() => handleCategoryChange("natural")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "natural" ? "bg-gray-300" : ""}`}
-        >
-          Natural
-        </button>
-        <button
-          onClick={() => handleCategoryChange("tips")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "tips" ? "bg-gray-300" : ""}`}
-        >
-          Tips
-        </button>
-        <button
-          onClick={() => handleCategoryChange("news")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "news" ? "bg-gray-300" : ""}`}
-        >
-          News
-        </button>
-        <button
-          onClick={() => handleCategoryChange("reviews")}
-          className={`mx-2 px-4 py-2 rounded-full border border-gray-300 ${selectedCategory === "reviews" ? "bg-gray-300" : ""}`}
-        >
-          Reviews
-        </button>
+          <option value="all">All</option>
+          <option value="food">Food</option>
+          <option value="diet">Diet</option>
+          <option value="mental health">Mental Health</option>
+          <option value="medical">Medical</option>
+          <option value="lifestyle">Lifestyle</option>
+          <option value="family health">Family Health</option>
+          <option value="natural">Natural</option>
+          <option value="tips">Tips</option>
+          <option value="news">News</option>
+          <option value="reviews">Reviews</option>
+        </select>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {filteredArticles.map((article) => (
