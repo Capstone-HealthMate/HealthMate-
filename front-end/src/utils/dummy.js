@@ -203,8 +203,6 @@ const data = {
         {
             asset:icon3,
             title : 'Tingkat Aktivitas Fisik',
-            placeholder : '80',
-            satuan: 'Cm'
         },
         {
             asset:icon2,

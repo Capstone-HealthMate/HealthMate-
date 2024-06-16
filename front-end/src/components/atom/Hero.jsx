@@ -3,7 +3,8 @@ import React from 'react';
 
 const Hero = () => {
   return (
-    <div className="bg-gradient-to-b from-white to-blue-100 text-center py-16 px-4">
+    <div className="py-2 px-16 ">
+      <div className="bg-gradient-to-b from-white to-blue-100 rounded-3xl text-center py-16 px-4">
       <div className="container mx-auto">
         <div className="bg-white text-sm text-gray-700 py-2 px-4 rounded-full inline-block mb-4">
           All in one Saas Dashboard, Get 40% Off Now
@@ -16,6 +17,8 @@ const Hero = () => {
           Learn More
         </button>
       </div>
+    </div>
+
     </div>
   );
 };

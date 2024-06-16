@@ -3,3 +3,19 @@
 #root {
   font-family: "Inter";
 }
+.tab-active {
+  border-bottom: 2px solid blue; /* Menambahkan garis bawah berwarna biru untuk tab aktif */
+  color: blue; /* Mengubah warna teks tab aktif menjadi biru */
+}
+
+/* Hide the spinners for Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide the spinners for Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
