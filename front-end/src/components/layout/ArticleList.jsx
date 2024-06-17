@@ -22,6 +22,7 @@ const ArticleList = ({ articles }) => {
           <option value="all">All</option>
           <option value="food">Food</option>
           <option value="diet">Diet</option>
+          <option value="fitness">Fitness</option>
           <option value="mental health">Mental Health</option>
           <option value="medical">Medical</option>
           <option value="lifestyle">Lifestyle</option>

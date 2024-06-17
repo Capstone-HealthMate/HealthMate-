@@ -11,7 +11,7 @@ export default function BannerCard({ id, title, content, image, category, User }
     content.length > 100 ? content.substring(0, 100) + "..." : content;
 
   // Filter hanya untuk kategori Food
-  if (category !== "Food") {
+  if (category !== "food") {
     return null; // Mengembalikan null jika kategori bukan Food
   }
 

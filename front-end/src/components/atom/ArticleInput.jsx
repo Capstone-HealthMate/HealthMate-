@@ -176,16 +176,17 @@ const ArticleInput = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
             >
               <option value="">Select Category</option>
-              <option value="Food">Food</option>
-              <option value="Diet">Diet</option>
-              <option value="Mental Health">Mental Health</option>
-              <option value="Medical">Medical</option>
-              <option value="Lifestyle">Lifestyle</option>
-              <option value="Family Health">Family Health</option>
-              <option value="Natural">Natural</option>
-              <option value="Tips">Tips</option>
-              <option value="News">News</option>
-              <option value="Reviews">Reviews</option>
+              <option value="food">Food</option>
+              <option value="diet">Diet</option>
+              <option value="fitness">Diet</option>
+              <option value="mental health">Mental Health</option>
+              <option value="medical">Medical</option>
+              <option value="lifestyle">Lifestyle</option>
+              <option value="family health">Family Health</option>
+              <option value="natural">Natural</option>
+              <option value="tips">Tips</option>
+              <option value="news">News</option>
+              <option value="reviews">Reviews</option>
             </select>
           </div>
           <button
