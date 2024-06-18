@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import TextHeader from '../atom/TextHeader';
-import Card from '../atom/Card';
 
-import data from '../../utils/dummy';
-import iconBoy from './../../assets/card/boy.svg'
-import iconGirl from './../../assets/card/girl.svg'
+
+
 import MineralCalcu from './calculator/MineralCalcu';
 import CaloriesCalcu from './calculator/CaloriesCalcu';
 import GreaseCalcu from './calculator/GreaseCalcu';
@@ -34,7 +32,7 @@ export default function CardLayout({ onTabsActive }) {
         },
         {
             id: 3,
-            label: 'Body Mass Index',
+            label: 'BMI Check',
             content: <BMICalcu/>
         },
 
@@ -58,11 +56,11 @@ export default function CardLayout({ onTabsActive }) {
             <div className='flex flex-col bg-transparent w-full'>
                 <div className="flex flex-col justify-center items-center mb-8 w-full">
                     <TextHeader>Check Your Healthy</TextHeader>
-                    <div role="tablist" className="tabs tabs-bordered gap-x-8 mt-2">
+                    <div role="tablist" className="tabs tabs-bordered lg:gap-x-8 gap-x-0 mt-2">
                         {
                             dataTabs.map((data) => (
                                 <a role="tab"
-                                    className={`tab text-xl font-semibold ${tabsActive === data.id ? 'tab-active text-black-500' : 'text-neutral'}`}
+                                    className={`tab lg:text-xl md:text-base  text-xs font-semibold ${tabsActive === data.id ? 'tab-active text-black-500' : 'text-neutral'}`}
                                     onClick={() => handleTabsActive(data.id)} >{data.label}</a>
                             ))
                         }
@@ -70,7 +68,9 @@ export default function CardLayout({ onTabsActive }) {
 
 
                     <div className="bg-[#d8ecff8b] w-full text-black text-5xl mt-8">
+                        <div className="lg:px-0 px-4">
                         {dataTabs[tabsActive].content}
+                        </div>
                     </div>
                 </div>
             </div>
