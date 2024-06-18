@@ -54,13 +54,13 @@ export default function Navbar2() {
           <ul className="menu menu-horizontal px-1">
             <li>
               {" "}
-              <Link to="#" className="hover:text-gray-300">
-                Calculator
+              <Link to="/" className="hover:text-gray-300">
+                Home
               </Link>
             </li>
             <li>
               {" "}
-              <Link to="/" className="hover:text-gray-300">
+              <Link to="/about" className="hover:text-gray-300">
                 About
               </Link>
             </li>
@@ -100,19 +100,13 @@ export default function Navbar2() {
               className="menu menu-sm dropdown-content mt-3 z-[1] shadow bg-base-100 rounded-box w-44 absolute right-0 text-black">
               <li>
                 {" "}
-                <Link to="#" className="hover:text-gray-300">
-                  Calculator
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link to="/about" className="hover:text-gray-300">
+                <Link to="/" className="hover:text-gray-300">
                   Home
                 </Link>
               </li>
               <li>
                 {" "}
-                <Link to="/" className="hover:text-gray-300">
+                <Link to="/about" className="hover:text-gray-300">
                   About
                 </Link>
               </li>
