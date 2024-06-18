@@ -72,8 +72,8 @@ export default function Navbar2() {
             </li>
             <li>
               {" "}
-              <Link to="/disscus" className="hover:text-gray-300">
-                Disscus
+              <Link to="/discuss" className="hover:text-gray-300">
+                Discuss
               </Link>
             </li>
           </ul>

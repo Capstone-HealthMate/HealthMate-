@@ -8,9 +8,9 @@ export default function AboutPage() {
     <Navbar></Navbar>
     <section id="about" className="flex flex-col w-full py-12 px-8">
       <TextHeader>Our Story</TextHeader>
-      <div className="flex flex-col justify-center items-center mt-10">
+      <div className="flex flex-col justify-center items-center mt-10 text-justify">
        <img src={imageAbout} className="w-full max-w-4xl" alt="" />
-        <p className="max-w-3xl mt-4 text-balck">
+        <p className="max-w-3xl mt-4 ">
           HealthMate adalah platform kesehatan yang inovatif yang bertujuan untuk
           mengubah cara Anda menjalani hidup lebih sehat. Didirikan atas keyakinan
           bahwa kesehatan adalah aset berharga, HealthMate menyediakan berbagai
