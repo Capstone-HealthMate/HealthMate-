@@ -202,7 +202,7 @@ const data = {
         },
         {
             asset:icon3,
-            title : 'Tingkat Aktivitas Fisik',
+            title : 'Aktivitas Fisik',
         },
         {
             asset:icon2,
