@@ -1,11 +1,11 @@
 import React from "react";
 import TextHeader from "../components/atom/TextHeader";
-import Navbar2 from "../components/atom/Navbar2";
+import Navbar from "../components/atom/Navbar";
 import imageAbout from './../assets/images/about.png'
 export default function AboutPage() {
   return (
     <>
-    <Navbar2></Navbar2>
+    <Navbar></Navbar>
     <section id="about" className="flex flex-col w-full py-12 px-8">
       <TextHeader>Our Story</TextHeader>
       <div className="flex flex-col justify-center items-center mt-10">
