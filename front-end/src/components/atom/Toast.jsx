@@ -4,7 +4,7 @@ export default function Toast({ children }) {
   return (
     <div>
       <div className="toast bg-white-100 shadow-lg z-50">
-        <div className="alert alert-warning flex justify-between items-center text-lg">
+        <div className="alert alert-warning flex justify-between items-center lg:text-xl text-sm">
            <svg
           xmlns="http://www.w3.org/2000/svg"
           className="stroke-current shrink-0 h-6 w-6"
