@@ -76,31 +76,31 @@ export default function MineralCalcu() {
                         <h3 className="text-sm font-medium text-[#b9b9b9]">
                           Pilih Jenis Kelamin mu!
                         </h3>
-                        <div className="flex items-center justify-between">
-                          <span className="text-2xl text-secondary font-semibold">
+                        <div className="flex lg:flex-row flex-col items-center justify-between">
+                          <span className="lg:text-2xl text-base pb-2 text-secondary font-semibold">
                             {item.title}
                           </span>
-                          <div className="flex gap-4 px-8">
+                          <div className="flex gap-4 lg:px-8">
                             <div className="form-control flex flex-col justify-center items-center">
-                              <img className="w-20 h-20" src={iconBoy} alt="" />
+                              <img className="lg:w-20 w-16" src={iconBoy} alt="" />
                               <label className="label cursor-pointer space-x-2">
                                 <input
                                   type="radio"
                                   name="gender"
-                                  className="radio radio-sm radio-info"
+                                  className="radio lg:radio-sm radio-xs radio-info"
                                   required
                                   checked={gender === "laki-laki"}
                                   value="laki-laki"
                                   onChange={onGenderChange}
                                 />
-                                <span className="label-text text-lg">
+                                <span className="label-text lg:text-lg text-sm">
                                   Laki Laki
                                 </span>
                               </label>
                             </div>
                             <div className="form-control flex flex-col justify-center items-center">
                               <img
-                                className="w-20 h-20"
+                                className="lg:w-20 w-16"
                                 src={iconGirl}
                                 alt=""
                               />
@@ -109,12 +109,12 @@ export default function MineralCalcu() {
                                   type="radio"
                                   name="gender"
                                   required
-                                  className="radio radio-sm radio-info"
+                                  className="radio lg:radio-sm radio-xs radio-info"
                                   checked={gender === "perempuan"}
                                   value="perempuan"
                                   onChange={onGenderChange}
                                 />
-                                <span className="label-text text-lg">
+                                <span className="label-text lg:text-lg text-sm">
                                   Perempuan
                                 </span>
                               </label>
@@ -132,7 +132,7 @@ export default function MineralCalcu() {
                 case 7:
                   return (
                     <div
-                      className={`${index > 4 ? "col-span-2" : "col-span-3"}`}
+                      className={`${index > 4 ? "lg:col-span-2 col-span-full" : "lg:col-span-3 col-span-full"}`}
                       key={index}>
                       <Card
                         valueInput={
@@ -167,7 +167,7 @@ export default function MineralCalcu() {
                   )
                 case 4:
                   return (
-                    <div className="col-span-3">
+                    <div className="lg:col-span-3 col-span-full">
                       <div className="w-full h-full rounded-2xl flex flex-col gap-y-6 font-semibold text-secondary bg-white border p-4">
                         <div className="flex flex-col relative mb-">
                           <img
@@ -181,19 +181,19 @@ export default function MineralCalcu() {
                         <h3 className="text-sm font-medium text-[#b9b9b9]">
                           Pilih nilai di bawah ini!!!
                         </h3>
-                        <div className="flex gap-4">
+                        <div className="flex lg:gap-4 gap-1">
                           <div className="form-control flex justify-center items-center">
                             <label className="label cursor-pointer space-x-1">
                               <input
                                 type="radio"
                                 name="radio-7"
                                 required
-                                className="radio radio-sm radio-info"
+                                className="radio lg:radio-sm radio-xs radio-info"
                                 checked={aktivitas === "Jarang"}
                                 value="Jarang"
                                 onChange={onAktivitasChange}
                               />
-                              <span className="label-text text-base">
+                              <span className="label-text lg:text-base text-xs">
                                 Jarang
                               </span>
                             </label>
@@ -204,12 +204,12 @@ export default function MineralCalcu() {
                                 type="radio"
                                 name="radio-7"
                                 required
-                                className="radio radio-sm radio-info"
+                                className="radio lg:radio-sm radio-xs radio-info"
                                 checked={aktivitas === "Cukup"}
                                 value="Cukup"
                                 onChange={onAktivitasChange}
                               />
-                              <span className="label-text text-base">
+                              <span className="label-text lg:text-base text-xs">
                                 Cukup
                               </span>
                             </label>
@@ -220,12 +220,12 @@ export default function MineralCalcu() {
                                 type="radio"
                                 name="radio-7"
                                 required
-                                className="radio radio-sm radio-info"
+                                className="radio lg:radio-sm radio-xs radio-info"
                                 checked={aktivitas === "Sering"}
                                 value="Sering"
                                 onChange={onAktivitasChange}
                               />
-                              <span className="label-text text-base">
+                              <span className="label-text lg:text-base text-xs">
                                 Sering
                               </span>
                             </label>
@@ -247,21 +247,21 @@ export default function MineralCalcu() {
 
       {result && (
         <dialog ref={modalRef} id="my_modal_4" className="modal">
-          <div className="modal-box text-lg w-6/12 max-w-5xl flex flex-col text-center justify-center items-center">
+          <div className="modal-box lg:text-lg text-base lg:w-6/12 w-10/12 max-w-5xl flex flex-col text-center justify-center items-center">
             <div className="flex flex-col mb-2">
-              <h2 className="font-bold text-2xl">
+              <h2 className="font-bold lg:text-2xl text-xl">
                 Kebutuhan Mineral Kamu {result.waterIntake}
               </h2>
             </div>
-            <h2 className="font-bold text-xl">Tips Untuk Kamu</h2>
-            <ul>
+            <h2 className="font-bold lg:text-xl text-lg">Tips Untuk Kamu</h2>
+            <ul className="lg:text-base text-sm">
               {result?.suggestions.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>
             <div className="modal-action">
               <form method="dialog">
-                <button className="btn btn-secondary w-full">
+                <button className="btn lg:text-base text-sm font-medium btn-secondary w-full">
                   Hitung Lagi
                 </button>
               </form>

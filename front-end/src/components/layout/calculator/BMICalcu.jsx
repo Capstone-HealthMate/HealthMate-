@@ -60,22 +60,22 @@ export default function BMICalcu() {
       )}
       {result && (
         <dialog ref={modalRef} id="my_modal_4" className="modal">
-          <div className="modal-box text-lg w-6/12 max-w-5xl flex flex-col text-center justify-center items-center">
+          <div className="modal-box text-lg lg:w-6/12 w-10/12 max-w-5xl flex flex-col text-center justify-center items-center">
             <div className="flex flex-col mb-2">
-              <h3 className="font-bold text-2xl">BMI kamu {result?.BMI}</h3>
-              <h2 className="font-bold text-2xl">
+              <h3 className="font-bold lg:text-2xl text-lg">BMI kamu {result?.BMI}</h3>
+              <h2 className="font-bold lg:text-2xl text-lg">
                 Kamu masuk dalam kategori {result?.kategori}
               </h2>
             </div>
-            <h2 className="font-bold text-xl">Tips Untuk Kamu</h2>
-            <ul>
+            <h2 className="font-bold lg:text-xl text-lg">Tips Untuk Kamu</h2>
+            <ul className="lg:text-base text-sm">
               {result?.saran.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>
             <div className="modal-action">
               <form method="dialog">
-                <button className="btn btn-secondary w-full">
+                <button className="btn lg:text-base text-sm font-medium btn-secondary w-full">
                   Hitung Lagi
                 </button>
               </form>
@@ -94,41 +94,45 @@ export default function BMICalcu() {
                     <h3 className="text-sm font-medium text-[#b9b9b9]">
                       Pilih Jenis Kelamin mu!
                     </h3>
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl text-secondary font-semibold">
+                    <div className="flex lg:flex-row flex-col items-center justify-between">
+                      <span className="lg:text-2xl text-base pb-2 text-secondary font-semibold">
                         {item.title}
                       </span>
-                      <div className="flex gap-4 px-8">
+                      <div className="flex gap-4 lg:px-8">
                         <div className="form-control flex flex-col justify-center items-center">
-                          <img className="w-20 h-20" src={iconBoy} alt="" />
+                          <img className="lg:w-20 w-16" src={iconBoy} alt="" />
                           <label className="label cursor-pointer space-x-2">
                             <input
                               type="radio"
                               name="gender"
-                              className="radio radio-sm radio-info"
+                              className="radio lg:radio-sm radio-xs radio-info"
                               required
                               checked={gender === "laki-laki"}
                               value="laki-laki"
                               onChange={onGenderChange}
                             />
-                            <span className="label-text text-lg">
+                            <span className="label-text lg:text-lg text-sm">
                               Laki Laki
                             </span>
                           </label>
                         </div>
                         <div className="form-control flex flex-col justify-center items-center">
-                          <img className="w-20 h-20" src={iconGirl} alt="" />
+                          <img
+                            className="lg:w-20 w-16"
+                            src={iconGirl}
+                            alt=""
+                          />
                           <label className="label cursor-pointer space-x-2">
                             <input
                               type="radio"
                               name="gender"
                               required
-                              className="radio radio-sm radio-info"
+                              className="radio lg:radio-sm radio-xs radio-info"
                               checked={gender === "perempuan"}
                               value="perempuan"
                               onChange={onGenderChange}
                             />
-                            <span className="label-text text-lg">
+                            <span className="label-text lg:text-lg text-sm">
                               Perempuan
                             </span>
                           </label>
@@ -138,7 +142,7 @@ export default function BMICalcu() {
                   </Card>
                 </div>
               ) : index === 1 ? (
-                <div className="col-span-3" key={index}>
+                  <div className="lg:col-span-3 col-span-full" key={index}>
                   <Card
                     valueInput={beratBadan}
                     onInputChange={onBeratBadanChange}
@@ -147,7 +151,7 @@ export default function BMICalcu() {
                 </div>
               ) : (
                 index === 2 && (
-                  <div className="col-span-3" key={index}>
+                      <div className="lg:col-span-3 col-span-full" key={index}>
                     <Card
                       valueInput={tinggiBadan}
                       onInputChange={onTinggiBadanChange}

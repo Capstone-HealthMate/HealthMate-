@@ -9,17 +9,20 @@ import "./index.css";
 import DisscusPage from "./pages/DisscusPage";
 
 import DetaiilDisscusPage from "./pages/DetaiilDisscusPage";
-import Navbar from "./components/atom/Navbar";
+
 import AuthLayout from "./components/layout/auth.jsx";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import AddArticlePage from "./pages/AddArticlePage.jsx";
+
+import AboutPage from "./pages/AboutPage.jsx";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/" element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

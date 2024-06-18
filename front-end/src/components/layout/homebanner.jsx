@@ -4,6 +4,7 @@ import Heading from "../atom/heading";
 import baseUrl from "../../utils/config";
 import Avatar from "../atom/Avatar";
 import { Link } from "react-router-dom";
+import TextHeader from "../atom/TextHeader";
 
 export default function Homebanner({ articles }) {
   const formatDate = (dateString) => {
@@ -17,9 +18,9 @@ export default function Homebanner({ articles }) {
           <BannerCard key={article.id} {...article} />
         ))}
       </section>
-      <Heading className="text-center py-[38px] text-black">
-        Tertarik untuk memulai diet sehat? Jelajahi berbagai caranya disini!
-      </Heading>
+
+      <TextHeader>Our Article</TextHeader>
+
       <section className="px-[25px] flex flex-col gap-6 lg:flex-row lg:px-[74px]">
         <div className="w-full lg:w-2/3">
           {articles

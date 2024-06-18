@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import icon from "./../../assets/images/icon.png";
 import baseUrl from "../../utils/config";
 
-const Navbar = () => {
+export default function Navbar2() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -40,61 +40,142 @@ const Navbar = () => {
     setUser(null);
     navigate("/");
   };
-
   return (
-    <div className="py-8">
-      <nav className="bg-gray-900 shadow-md py-2 rounded-full max-w-screen-lg mx-auto">
-        <div className="container mx-auto px-4 flex justify-between items-center">
+    <div>
+      <div className="navbar lg:px-8 px-4 bg-slate-950 text-white ">
+        <div className="navbar-start">
+      
           <div className="flex items-center space-x-2">
-            <img src={icon} alt="Logo" className="w-8 h-8" />
-            <span className="text-2xl font-bold text-white">HealthMate</span>
+            <img src={icon} alt="Logo" className="w-7" />
+            <span className="text-xl font-medium text-white">HealthMate</span>
           </div>
-          <div className="hidden md:flex space-x-6 text-white">
-            <Link to="/calculator" className="hover:text-gray-300">
-              Calculator
-            </Link>
-            <Link to="/" className="hover:text-gray-300">
-              About
-            </Link>
-            <Link to="/article" className="hover:text-gray-300">
-              Article
-            </Link>
-            <Link to="/discuss" className="hover:text-gray-300">
-              Discuss
-            </Link>
-            <Link to="#" className="hover:text-gray-300">
-              Contact
-            </Link>
+        </div>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              {" "}
+              <Link to="/" className="hover:text-gray-300">
+                Home
+              </Link>
+            </li>
+            <li>
+              {" "}
+              <Link to="/about" className="hover:text-gray-300">
+                About
+              </Link>
+            </li>
+            <li>
+              {" "}
+              <Link to="/article" className="hover:text-gray-300">
+                Article
+              </Link>
+            </li>
+            <li>
+              {" "}
+              <Link to="/disscus" className="hover:text-gray-300">
+                Disscus
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="navbar-end ">
+          <div className="dropdown relative">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] shadow bg-base-100 rounded-box w-44 absolute right-0 text-black">
+              <li>
+                {" "}
+                <Link to="/" className="hover:text-gray-300">
+                  Home
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link to="/about" className="hover:text-gray-300">
+                  About
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link to="/article" className="hover:text-gray-300">
+                  Article
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link to="/disscus" className="hover:text-gray-300">
+                  Disscus
+                </Link>
+              </li>
+              <li className="space-y-2">
+                {user ? (
+                  <button
+                    onClick={handleLogout}
+                    className="btn bg-red-500 text-white rounded-full hover:bg-red-600">
+                    Logout
+                  </button>
+                ) : (
+                  <>
+                  
+                    <Link
+                      to="/register"
+                      className="btn bg-blue-300 text-gray-900 hover:bg-blue-400">
+                      Sign Up
+                    </Link>
+                    <Link
+                      to="/login"
+                      className="btn bg-white text-gray-900  hover:bg-gray-200">
+                      Login
+                    </Link>
+
+
+                  </>
+                )}
+              </li>
+            </ul>
           </div>
-          <div className="flex space-x-4">
+
+          <div className="space-x-4 hidden lg:flex">
             {user ? (
               <button
                 onClick={handleLogout}
-                className="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600"
-              >
+                className="btn bg-red-500 text-white rounded-full hover:bg-red-600">
                 Logout
               </button>
             ) : (
               <>
                 <Link
                   to="/register"
-                  className="bg-blue-300 text-gray-900 px-4 py-2 rounded-full hover:bg-blue-400"
-                >
+                  className="btn bg-blue-300 text-gray-900 hover:bg-blue-400">
                   Sign Up
                 </Link>
                 <Link
                   to="/login"
-                  className="bg-white text-gray-900 px-4 py-2 rounded-full hover:bg-gray-200"
-                >
+                  className="btn bg-white text-gray-900  hover:bg-gray-200">
                   Login
                 </Link>
+
+                
               </>
             )}
           </div>
         </div>
-      </nav>
+      </div>
     </div>
   );
-};
-
-export default Navbar;
+}
