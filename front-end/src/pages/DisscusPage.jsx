@@ -84,9 +84,9 @@ export default function DisscusPage() {
     <>
       <Modal refetch={getAllDiscussions} />
       <Navbar />
-      <div className="flex w-full">
+      <div className="flex flex-col lg:flex-row w-full">
         {/* Sidebar */}
-        <div className="w-1/5 h-full p-4 border max-h-fit">
+        <div className="w-full lg:w-1/5 h-full p-4 border max-h-fit">
           {user && (
             <button
               disabled={!user.authenticated}
@@ -116,7 +116,7 @@ export default function DisscusPage() {
         </div>
 
         {/* Main content */}
-        <div className="w-4/5 p-8">
+        <div className="w-full lg:w-4/5 p-8">
           {/* Discussion input */}
           <InputDisscus onChange={(e) => setSearch({ ...search, query: e })} />
 
@@ -126,7 +126,7 @@ export default function DisscusPage() {
           )}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

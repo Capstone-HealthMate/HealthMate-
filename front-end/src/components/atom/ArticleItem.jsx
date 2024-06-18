@@ -3,16 +3,43 @@ import { Link } from "react-router-dom";
 import {
   AiOutlineHeart,
   AiFillHeart,
-  AiOutlineClockCircle,
-  AiOutlineRest,
 } from "react-icons/ai";
-import baseUrl from "../../utils/config";
+import { FaUtensils, FaAppleAlt, FaDumbbell, FaBrain, FaHeartbeat, FaHeart, FaUsers, FaLeaf, FaLightbulb, FaNewspaper, FaStar, FaGlobe } from "react-icons/fa";import baseUrl from "../../utils/config";
 
-const ArticleItem = ({ id, title, image, time, category }) => {
+const ArticleItem = ({ id, title, image, category }) => {
   const [liked, setLiked] = useState(false);
 
   const toggleLike = () => {
     setLiked(!liked);
+  };
+
+  const getCategoryIcon = (category) => {
+    switch (category.toLowerCase()) {
+      case 'food':
+        return <FaUtensils className="mr-1" />;
+      case 'diet':
+        return <FaAppleAlt className="mr-1" />;
+      case 'fitness':
+        return <FaDumbbell className="mr-1" />;
+      case 'mental health':
+        return <FaBrain className="mr-1" />;
+      case 'medical':
+        return <FaHeartbeat className="mr-1" />;
+      case 'lifestyle':
+        return <FaHeart className="mr-1" />;
+      case 'family health':
+        return <FaUsers className="mr-1" />;
+      case 'natural':
+        return <FaLeaf className="mr-1" />;
+      case 'tips':
+        return <FaLightbulb className="mr-1" />;
+      case 'news':
+        return <FaNewspaper className="mr-1" />;
+      case 'reviews':
+        return <FaStar className="mr-1" />;
+      default:
+        return <FaGlobe className="mr-1" />; // General icon
+    }
   };
 
   return (
@@ -40,13 +67,9 @@ const ArticleItem = ({ id, title, image, time, category }) => {
         <div className="p-4 flex-grow flex flex-col">
           <h2 className="text-xl font-semibold mb-2 flex-grow">{title}</h2>
           <div className="time-category-wrapper absolute bottom-0 left-0 w-full flex justify-around items-center text-gray-600">
-            <div className="flex items-center">
-              <AiOutlineClockCircle className="mr-1" />
-              <span>{time}</span>
-            </div>
             <div className="flex items-center pl-4">
-              <AiOutlineRest className="mr-1" />
-              <span>{category}</span>
+            {getCategoryIcon(category)}
+            <span>{category}</span>
             </div>
           </div>
         </div>

@@ -30,8 +30,8 @@ function App() {
         <Route path="/article" element={<ArticlePage />} />
         <Route path="/article/:id" element={<DetailPage />} />
         <Route path="/article/add" element={<AddArticlePage />} />
-        <Route path="/disscus" element={<DisscusPage />} />
-        <Route path="/disscus/:id" element={<DetaiilDisscusPage />} />
+        <Route path="/discuss" element={<DisscusPage />} />
+        <Route path="/discuss/:id" element={<DetaiilDisscusPage />} />
       </Routes>
     </div>
   );

@@ -26,7 +26,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
 // Create a new article
 const createArticle = async (req, res) => {
-  const { title, content, time, category } = req.body;
+  const { title, content, category } = req.body;
   const image = req.file ? req.file.filename : null;
 
   try {
@@ -34,7 +34,6 @@ const createArticle = async (req, res) => {
       title,
       content,
       image,
-      time,
       category,
       userId: req.user.id,
     });
@@ -103,7 +102,7 @@ const getArticleById = async (req, res) => {
 // Update an article
 const updateArticle = async (req, res) => {
   const { id } = req.params;
-  const { title, content, time, category } = req.body;
+  const { title, content, category } = req.body;
   const image = req.file ? req.file.filename : null;
 
   try {
@@ -115,7 +114,6 @@ const updateArticle = async (req, res) => {
 
     article.title = title;
     article.content = content;
-    article.time = time;
     article.category = category;
     if (image) {
       article.image = image;

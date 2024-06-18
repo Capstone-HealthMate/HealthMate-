@@ -1,10 +1,20 @@
-import Paragraph from "./paragraph";
-import Button from "./button";
-import baseUrl from "../../utils/config";
+import React from "react";
 import { Link } from "react-router-dom";
+import baseUrl from "../../utils/config";
 import Avatar from "./Avatar";
+import Button from "./button";
+import Paragraph from "./paragraph";
 
-export default function BannerCard({ id, title, content, image, User }) {
+export default function BannerCard({ id, title, content, image, category, User }) {
+  // Truncate content to 100 characters
+  const truncatedContent =
+    content.length > 100 ? content.substring(0, 100) + "..." : content;
+
+  // Filter hanya untuk kategori Food
+  if (category !== "food") {
+    return null; // Mengembalikan null jika kategori bukan Food
+  }
+
   return (
     <div className="overflow-hidden flex-shrink-0 rounded-xl w-[735px] grid grid-cols-2 relative">
       <img
@@ -19,7 +29,7 @@ export default function BannerCard({ id, title, content, image, User }) {
         </div>
         <h1 className="text-2xl font-bold text-black mt-[10px]">{title}</h1>
         <Paragraph className="mt-[10px] text-sm lg:text-lg">
-          {content}
+          <div dangerouslySetInnerHTML={{ __html: truncatedContent }} />
         </Paragraph>
         <div className="flex items-center w-full gap-2 mt-11">
           <Avatar name={User.username} />

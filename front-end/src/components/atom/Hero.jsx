@@ -4,6 +4,7 @@ import TextHeader from "./TextHeader";
 
 const Hero = () => {
   return (
+
     <div className="py-2 lg:px-16 px-3">
       <div className="bg-gradient-to-b from-white to-blue-100 rounded-3xl text-center lg:py-12 py-4 px-4">
         <div className="container mx-auto  flex flex-col justify-center items-center leading-relaxed lg:max-w-3xl">
