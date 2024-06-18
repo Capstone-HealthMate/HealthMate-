@@ -64,7 +64,7 @@ export default function Login() {
       <div className="flex flex-col gap-5">
         <Heading className="lg:text-[54px]">Login</Heading>
         <Paragraph className="lg:w-[470px]">
-          Masukan Email dan Passwordmu yang sudah teradaftar.
+          Masukan Email dan Passwordmu yang sudah terdaftar.
         </Paragraph>
       </div>
       <div className="flex flex-col gap-[52px]">

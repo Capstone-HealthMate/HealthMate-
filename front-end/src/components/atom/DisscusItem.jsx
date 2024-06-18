@@ -8,7 +8,6 @@ export default function DiscussItem({
   id,
   owner,
   likeCount,
-  commentCount,
   content,
   upVotesBy = [],
   authUser,
@@ -19,6 +18,7 @@ export default function DiscussItem({
   const isLikedByCurrentUser = upVotesBy.includes(authUser);
   const [isLiked, setIsLiked] = useState(false);
   const [like, setLike] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
 
   const navigate = useNavigate();
 
@@ -31,11 +31,24 @@ export default function DiscussItem({
     setLike(like + 1);
   };
 
+  const fetchCommentCount = async () => {
+    const response = await fetch(`${baseUrl}/comments/${id}`, {
+      method: "GET",
+      credentials: "include",
+    });
+    const data = await response.json();
+    setCommentCount(data.length);
+  };
+
   useEffect(() => {
     if (likeCount) {
       setLike(likeCount);
     }
   }, [likeCount]);
+
+  useEffect(() => {
+    fetchCommentCount();
+  }, []);
 
   useEffect(() => {
     if (isLikedByCurrentUser === 1) {
