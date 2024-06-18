@@ -13,7 +13,7 @@ export default function Homebanner({ articles }) {
   return (
     <main className="py-10">
       <section className="flex w-full gap-10 overflow-x-auto rounded-xl">
-        {articles.map((article) => (
+        {articles.slice(0, 4).map((article) => (
           <BannerCard key={article.id} {...article} />
         ))}
       </section>
