@@ -25,6 +25,7 @@ function HomePage() {
   }, []);
 
   return (
+    <>
     <section className="HomePage">
       <Navbar/>
       <Hero/>
@@ -32,6 +33,7 @@ function HomePage() {
       <Homebanner articles={articles}/>
       <Footer/>
     </section>
+    </>
   );
 }
 
