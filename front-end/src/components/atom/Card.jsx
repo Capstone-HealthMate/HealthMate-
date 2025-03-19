@@ -35,7 +35,7 @@ export default function Card({
               placeholder={placeholder}
               required
             />
-            <span className="text-2xl text-[#00E9D6] font-semibold">
+            <span className="text-2xl text-blue-400 font-semibold">
               {satuan}
             </span>
           </div>

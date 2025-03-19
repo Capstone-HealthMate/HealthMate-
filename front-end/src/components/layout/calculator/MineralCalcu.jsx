@@ -8,6 +8,7 @@ import useInput from "../../../hooks/useInput"
 import rumus from "../../../utils/rumus"
 import Toast from "../../atom/Toast"
 import useToast from "../../../hooks/useToast"
+import Button from "../../atom/button"
 
 export default function MineralCalcu() {
   const [gender, setGender, onGenderChange] = useInput("")
@@ -66,7 +67,7 @@ export default function MineralCalcu() {
       <div className="w-full flex justify-center items-center py-8">
         <form onSubmit={onCalculate}>
           <div
-            className={`grid grid-cols-6 items-center justify-center gap-y-6 gap-x-4 max-w-3xl mb-4`}>
+            className={`grid grid-cols-6 items-center justify-center gap-y-6 gap-x-4 max-w-4xl mb-4`}>
             {mineralCalculator.map((item, index) => {
               switch (index) {
                 case 0:
@@ -239,9 +240,9 @@ export default function MineralCalcu() {
               }
             })}
           </div>
-          <button type="submit" className="btn btn-secondary w-full">
+          <Button type="submit" className="btn btn-filled w-full">
             Saya menghitung!
-          </button>
+          </Button>
         </form>
       </div>
 

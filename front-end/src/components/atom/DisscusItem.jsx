@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaRegHeart, FaHeart, FaRegCommentAlt } from "react-icons/fa";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import Avatar from "./Avatar";
 import baseUrl from "../../utils/config";
 
@@ -11,13 +11,10 @@ export default function DiscussItem({
   content,
   upVotesBy = [],
   authUser,
-  totalDisscus,
-  createdAt,
 }) {
-  // Check if the discussion is liked by the current authenticated user
   const isLikedByCurrentUser = upVotesBy.includes(authUser);
-  const [isLiked, setIsLiked] = useState(false);
-  const [like, setLike] = useState(0);
+  const [isLiked, setIsLiked] = useState(isLikedByCurrentUser);
+  const [like, setLike] = useState(likeCount);
   const [commentCount, setCommentCount] = useState(0);
 
   const navigate = useNavigate();
@@ -27,8 +24,8 @@ export default function DiscussItem({
       method: "POST",
       credentials: "include",
     });
-    setIsLiked(true);
-    setLike(like + 1);
+    setIsLiked(!isLiked);
+    setLike(isLiked ? like - 1 : like + 1);
   };
 
   const fetchCommentCount = async () => {
@@ -41,56 +38,31 @@ export default function DiscussItem({
   };
 
   useEffect(() => {
-    if (likeCount) {
-      setLike(likeCount);
-    }
-  }, [likeCount]);
-
-  useEffect(() => {
     fetchCommentCount();
   }, []);
 
-  useEffect(() => {
-    if (isLikedByCurrentUser === 1) {
-      setIsLiked(true);
-    } else {
-      setIsLiked(false);
-    }
-  }, [isLikedByCurrentUser]);
-
-  const handleDetailClick = () => {
-    navigate(`/discuss/${id}`);
-  };
-
   return (
     <div
-      className="flex flex-col items-start justify-start gap-4 py-6 cursor-pointer"
-      onClick={handleDetailClick}
+      className="bg-white border rounded-lg p-5 w-full cursor-pointer transition hover:bg-gray-50"
+      onClick={() => navigate(`/discuss/${id}`)}
     >
-      {/* image */}
       <div className="flex items-center gap-3">
         <Avatar name={owner} />
-        <div className="flex flex-col items-start ">
-          <p className="text-lg font-semibold text-gray-900">{owner}</p>
+        <div>
+          <p className="text-md font-semibold text-gray-900">{owner}</p>
           <p className="text-sm text-gray-500">Anggota</p>
         </div>
       </div>
-      {/* body */}
-      <p className="text-lg text-left">{content}</p>
 
-      <div className="flex gap-3">
-        {/* like */}
-        <div className="flex items-center gap-1">
-          <button type="button" aria-label="like" onClick={handleLikeClick}>
-            {isLiked ? <FaHeart style={{ color: "red" }} /> : <FaRegHeart />}
-          </button>
+      <p className="text-gray-800 mt-4">{content}</p>
+
+      <div className="flex gap-5 mt-4 text-gray-600">
+        <button onClick={handleLikeClick} className="flex items-center gap-1">
+          {isLiked ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
           {like}
-        </div>
-        {/* comment */}
+        </button>
         <div className="flex items-center gap-1">
-          <button type="button" aria-label="comment">
-            <FaRegCommentAlt />
-          </button>
+          <FaRegCommentAlt />
           {commentCount}
         </div>
       </div>

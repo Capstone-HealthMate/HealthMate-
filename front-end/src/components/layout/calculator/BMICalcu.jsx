@@ -7,6 +7,7 @@ import useInput from "../../../hooks/useInput"
 import rumus from "../../../utils/rumus"
 import Toast from "../../atom/Toast"
 import useToast from "../../../hooks/useToast"
+import Button from "../../atom/button"
 
 export default function BMICalcu() {
   // input form
@@ -53,16 +54,14 @@ export default function BMICalcu() {
 
   return (
     <div>
-      {showToast && (
-        <Toast>
-          {errorMessage}
-        </Toast>
-      )}
+      {showToast && <Toast>{errorMessage}</Toast>}
       {result && (
         <dialog ref={modalRef} id="my_modal_4" className="modal">
           <div className="modal-box text-lg lg:w-6/12 w-10/12 max-w-5xl flex flex-col text-center justify-center items-center">
             <div className="flex flex-col mb-2">
-              <h3 className="font-bold lg:text-2xl text-lg">BMI kamu {result?.BMI}</h3>
+              <h3 className="font-bold lg:text-2xl text-lg">
+                BMI kamu {result?.BMI}
+              </h3>
               <h2 className="font-bold lg:text-2xl text-lg">
                 Kamu masuk dalam kategori {result?.kategori}
               </h2>
@@ -86,7 +85,8 @@ export default function BMICalcu() {
       <div className="w-full flex justify-center items-center py-8">
         <form onSubmit={onCalculate}>
           <div
-            className={`grid grid-cols-6 items-center justify-center gap-y-6 gap-x-4 max-w-3xl mb-4`}>
+            className={`grid grid-cols-6 items-center justify-center gap-y-6 gap-x-4 max-w-xl mb-4`}
+          >
             {BMICalculator.map((item, index) =>
               index === 0 ? (
                 <div className="col-span-6" key={index}>
@@ -117,11 +117,7 @@ export default function BMICalcu() {
                           </label>
                         </div>
                         <div className="form-control flex flex-col justify-center items-center">
-                          <img
-                            className="lg:w-20 w-16"
-                            src={iconGirl}
-                            alt=""
-                          />
+                          <img className="lg:w-20 w-16" src={iconGirl} alt="" />
                           <label className="label cursor-pointer space-x-2">
                             <input
                               type="radio"
@@ -142,7 +138,7 @@ export default function BMICalcu() {
                   </Card>
                 </div>
               ) : index === 1 ? (
-                  <div className="lg:col-span-3 col-span-full" key={index}>
+                <div className="lg:col-span-3 col-span-full" key={index}>
                   <Card
                     valueInput={beratBadan}
                     onInputChange={onBeratBadanChange}
@@ -151,7 +147,7 @@ export default function BMICalcu() {
                 </div>
               ) : (
                 index === 2 && (
-                      <div className="lg:col-span-3 col-span-full" key={index}>
+                  <div className="lg:col-span-3 col-span-full" key={index}>
                     <Card
                       valueInput={tinggiBadan}
                       onInputChange={onTinggiBadanChange}
@@ -162,11 +158,11 @@ export default function BMICalcu() {
               )
             )}
           </div>
-          <button className="btn submit btn-secondary w-full">
+          <Button className="btn submit btn-filled w-full">
             Saya menghitung!
-          </button>
+          </Button>
         </form>
       </div>
     </div>
-  )
+  );
 }

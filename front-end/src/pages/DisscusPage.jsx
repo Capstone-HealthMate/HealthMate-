@@ -103,8 +103,8 @@ export default function DisscusPage() {
                 <button
                   key={category}
                   className={cn(
-                    category === search.tag && "border-2 border-slate-600",
-                    "w-full capitalize btn btn-primary"
+                    category === search.tag && "border-2 bg-gradient-to-br from-blue-400 to-blue-600 text-white",
+                    "w-full capitalize btn border"
                   )}
                   onClick={() => tagHandler(category)}
                 >
@@ -116,7 +116,7 @@ export default function DisscusPage() {
         </div>
 
         {/* Main content */}
-        <div className="w-full lg:w-4/5 p-8">
+        <div className="w-full lg:w-4/5 p-8 flex flex-col gap-y-6">
           {/* Discussion input */}
           <InputDisscus onChange={(e) => setSearch({ ...search, query: e })} />
 

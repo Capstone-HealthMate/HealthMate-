@@ -1,15 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useState } from "react";
+import { toast } from "sonner";
+import baseUrl from "../../utils/config";
 import Button from "../../components/atom/button";
 import Heading from "../../components/atom/heading";
 import Input from "../../components/atom/input";
 import Label from "../../components/atom/label";
 import Paragraph from "../../components/atom/paragraph";
-import { useState } from "react";
-import { cn } from "../../utils/cn";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import baseUrl from "../../utils/config";
-import { toast } from "sonner";
 import ErrorLine from "../../components/atom/error-line";
 
 export default function Register() {
@@ -40,128 +39,116 @@ export default function Register() {
 
   const registerHandler = async (values) => {
     setLoading(true);
-    const response = await fetch(`${baseUrl}/auth/register`, {
-      method: "POST",
-      body: JSON.stringify({
-        username: values.username,
-        email: values.email,
-        password: values.password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
+    try {
+      const response = await fetch(`${baseUrl}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error);
+      toast.success(data.message);
+      navigate("/login");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
       setLoading(false);
-      const resp = await response.json();
-      toast.error(resp.error);
-      return;
     }
-
-    const res = await response.json();
-    setLoading(false);
-    toast.success(res.message);
-    navigate("/login");
   };
 
   return (
-    <form
-      onSubmit={formik.handleSubmit}
-      className="flex flex-col gap-[40px] lg:px-20 lg:py-5"
-    >
-      <div className="flex flex-col gap-1">
-        <Heading className="lg:text-[54px]">Register</Heading>
-        <Paragraph className="lg:w-[470px] text-black">
-          Masukan Email dan Passwordmu untuk pendaftaran
+    <div className="flex flex-col items-center justify-center min-h-screen px-6 lg:px-20">
+      <div className="w-full max-w-md space-y-6 bg-white rounded-lg p-8 ">
+        <Heading className="text-2xl font-semibold">Register</Heading>
+        <Paragraph className="text-gray-500">
+          Masukkan email dan password untuk pendaftaran.
         </Paragraph>
-      </div>
-      <div className="flex flex-col gap-[1px]">
-        <div className="flex flex-col gap-[10px] text-black">
-          <Label>Username</Label>
-          <Input
-            placeholder="Masukan Username"
-            name="username"
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <ErrorLine error={formik.errors.username} />
-        </div>
-        <div className="flex flex-col gap-[10px]">
-          <Label>Email</Label>
-          <Input
-            placeholder="Masukan Email"
-            type="email"
-            name="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <ErrorLine error={formik.errors.email} />
-        </div>
-        <div className="flex flex-col gap-[10px]">
-          <Label>Password</Label>
-          <div className="relative">
+        <form onSubmit={formik.handleSubmit} className="space-y-5">
+          <div>
+            <Label>Username</Label>
             <Input
-              placeholder="Masukan Password"
-              type={cn(eyePassword ? "text" : "password")}
-              name="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              type="text"
+              name="username"
+              placeholder="Masukkan Username"
+              {...formik.getFieldProps("username")}
             />
-            <button className="absolute -translate-y-1/2 right-4 top-1/2">
-              <img
-                src="/eye.svg"
-                alt=""
-                onClick={(e) => {
-                  e.preventDefault();
-                  setEyePassword(!eyePassword);
-                }}
-              />
-            </button>
+            <ErrorLine
+              error={formik.touched.username && formik.errors.username}
+            />
           </div>
-          <ErrorLine error={formik.errors.password} />
-        </div>
-        <div className="flex flex-col gap-[8px]">
-          <Label>Confirm Password</Label>
-          <div className="relative">
+          <div>
+            <Label>Email</Label>
             <Input
-              placeholder="Konfirmasi Password"
-              type={cn(eyeConfirm ? "text" : "password")}
-              name="confirmPassword"
-              value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              type="email"
+              name="email"
+              placeholder="Masukkan Email"
+              {...formik.getFieldProps("email")}
             />
-            <button className="absolute -translate-y-1/2 right-4 top-1/2">
-              <img
-                src="/eye.svg"
-                alt=""
-                onClick={(e) => {
-                  e.preventDefault();
-                  setEyeConfirm(!eyeConfirm);
-                }}
-              />
-            </button>
+            <ErrorLine error={formik.touched.email && formik.errors.email} />
           </div>
-          <ErrorLine error={formik.errors.confirmPassword} />
+          <div>
+            <Label>Password</Label>
+            <div className="relative">
+              <Input
+                type={eyePassword ? "text" : "password"}
+                name="password"
+                placeholder="Masukkan Password"
+                {...formik.getFieldProps("password")}
+              />
+              <button
+                type="button"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2"
+                onClick={() => setEyePassword(!eyePassword)}
+              >
+                <img src="/eye.svg" alt="Toggle visibility" />
+              </button>
+            </div>
+            <ErrorLine
+              error={formik.touched.password && formik.errors.password}
+            />
+          </div>
+          <div>
+            <Label>Confirm Password</Label>
+            <div className="relative">
+              <Input
+                type={eyeConfirm ? "text" : "password"}
+                name="confirmPassword"
+                placeholder="Konfirmasi Password"
+                {...formik.getFieldProps("confirmPassword")}
+              />
+              <button
+                type="button"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2"
+                onClick={() => setEyeConfirm(!eyeConfirm)}
+              >
+                <img src="/eye.svg" alt="Toggle visibility" />
+              </button>
+            </div>
+            <ErrorLine
+              error={
+                formik.touched.confirmPassword && formik.errors.confirmPassword
+              }
+            />
+          </div>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={!formik.isValid || loading}
+          >
+            {loading ? (
+              <span className="loading loading-spinner loading-xs"></span>
+            ) : (
+              "Daftar"
+            )}
+          </Button>
+        </form>
+        <div className="text-center text-sm text-gray-500">
+          Sudah punya akun?{" "}
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Masuk
+          </Link>
         </div>
       </div>
-      <div className="flex flex-col gap-[10px] w-full">
-        <Button type="submit" disabled={!formik.isValid || loading}>
-          {loading ? (
-            <span className="loading loading-spinner loading-xs"></span>
-          ) : (
-            "Continue"
-          )}
-        </Button>
-
-        <Button variant="secondary">
-          <Link to="/login">Sudah ada akun? Login Yuk!</Link>
-        </Button>
-      </div>
-    </form>
+    </div>
   );
 }

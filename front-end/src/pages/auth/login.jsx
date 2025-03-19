@@ -1,14 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../../components/atom/button";
-import Heading from "../../components/atom/heading";
-import Input from "../../components/atom/input";
-import Label from "../../components/atom/label";
-import Paragraph from "../../components/atom/paragraph";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { toast } from "sonner";
 import baseUrl from "../../utils/config";
+import Button from "../../components/atom/button";
+import Heading from "../../components/atom/heading";
+import Input from "../../components/atom/input";
+import Label from "../../components/atom/label";
+import Paragraph from "../../components/atom/paragraph";
 import ErrorLine from "../../components/atom/error-line";
 import { cn } from "../../utils/cn";
 
@@ -23,102 +23,96 @@ export default function Login() {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email address").required("Required"),
+      email: Yup.string().email("Invalid email").required("Required"),
       password: Yup.string().required("Required"),
     }),
-    onSubmit: (values) => loginHandler(values),
+    onSubmit: async (values) => {
+      setLoading(true);
+      try {
+        const response = await fetch(`${baseUrl}/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(values),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error);
+        toast.success(data.message);
+        navigate("/");
+      } catch (error) {
+        toast.error(error.message);
+      } finally {
+        setLoading(false);
+      }
+    },
   });
 
-  const loginHandler = async (values) => {
-    setLoading(true);
-    const response = await fetch(`${baseUrl}/auth/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-
-    if (!response.ok) {
-      setLoading(false);
-      const resp = await response.json();
-      toast.error(resp.error);
-      return;
-    }
-
-    const res = await response.json();
-    setLoading(false);
-    toast.success(res.message);
-    navigate("/");
-  };
-
   return (
-    <form
-      onSubmit={formik.handleSubmit}
-      className="flex flex-col gap-[40px] lg:px-20 lg:py-5"
-    >
-      <div className="flex flex-col gap-5">
-        <Heading className="lg:text-[54px]">Login</Heading>
-        <Paragraph className="lg:w-[470px]">
-          Masukan Email dan Passwordmu yang sudah terdaftar.
+    <div className="flex flex-col items-center justify-center min-h-screen px-6 lg:px-20">
+      <div className="w-full max-w-fit space-y-6 bg-white rounded-lg p-8">
+        <Heading className="text-2xl font-semibold ">Login</Heading>
+        <Paragraph className="text-gray-500">
+          Masukkan email dan password yang telah terdaftar.
         </Paragraph>
-      </div>
-      <div className="flex flex-col gap-[52px]">
-        <div className="flex flex-col gap-[10px]">
-          <Label>Email</Label>
-          <Input
-            placeholder="Masukan Email"
-            name="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <ErrorLine error={formik.errors.email} />
-        </div>
-        <div className="flex flex-col gap-[10px]">
-          <Label>Password</Label>
-          <div className="relative">
+        <form onSubmit={formik.handleSubmit} className="space-y-5">
+          <div>
+            <Label>Email</Label>
             <Input
-              placeholder="Masukan Password"
-              name="password"
-              type={cn(eyePassword ? "text" : "password")}
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              type="email"
+              name="email"
+              placeholder="Masukkan Email"
+              {...formik.getFieldProps("email")}
             />
-            <button className="absolute -translate-y-1/2 right-4 top-1/2">
-              <img
-                src="/eye.svg"
-                alt=""
-                onClick={(e) => {
-                  e.preventDefault();
-                  setEyePassword(!eyePassword);
-                }}
-              />
-            </button>
+            <ErrorLine error={formik.touched.email && formik.errors.email} />
           </div>
-          <ErrorLine error={formik.errors.password} />
+          <div>
+            <Label>Password</Label>
+            <div className="relative">
+              <Input
+                type={eyePassword ? "text" : "password"}
+                name="password"
+                placeholder="Masukkan Password"
+                {...formik.getFieldProps("password")}
+              />
+              <button
+                type="button"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2"
+                onClick={() => setEyePassword(!eyePassword)}
+              >
+                <img src="/eye.svg" alt="Toggle visibility" />
+              </button>
+            </div>
+            <ErrorLine
+              error={formik.touched.password && formik.errors.password}
+            />
+          </div>
+          <div className="text-right">
+            <Link
+              to="/forgot-password"
+              className="text-sm text-blue-500 hover:underline"
+            >
+              Lupa Password?
+            </Link>
+          </div>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={!formik.isValid || loading}
+          >
+            {loading ? (
+              <span className="loading loading-spinner loading-xs"></span>
+            ) : (
+              "Masuk"
+            )}
+          </Button>
+        </form>
+        <div className="text-center text-sm text-gray-500">
+          Belum punya akun?{" "}
+          <Link to="/register" className="text-blue-500 hover:underline">
+            Daftar
+          </Link>
         </div>
-        <a href="/" className="text-blue-500 text-link lg:text-lg">
-          Lupa Password??
-        </a>
       </div>
-      <div className="flex flex-col gap-[22px] w-full">
-        <Button type="submit" disabled={!formik.isValid || loading}>
-          {loading ? (
-            <span className="loading loading-spinner loading-xs"></span>
-          ) : (
-            "Continue"
-          )}
-        </Button>{" "}
-        <Button variant="secondary">
-          <Link to="/register">Belum ada akun? Daftar Yuk!</Link>
-        </Button>
-      </div>
-    </form>
+    </div>
   );
 }

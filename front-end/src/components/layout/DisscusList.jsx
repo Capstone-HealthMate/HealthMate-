@@ -2,7 +2,7 @@ import DisscusItem from "../atom/DisscusItem";
 
 export default function DisscusList({ disscus }) {
   return (
-    <div>
+    <div className="flex flex-col gap-y-4">
       {disscus.map((item) => (
         <DisscusItem
           key={item.id}

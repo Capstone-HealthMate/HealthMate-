@@ -68,15 +68,12 @@ export default function CaloriesCalcu() {
   )
   return (
     <div>
-      {showToast && (
-        <Toast>
-          {errorMessage}
-        </Toast>
-      )}
+      {showToast && <Toast>{errorMessage}</Toast>}
       <div className="w-full flex justify-center items-center py-8">
         <form action="">
           <div
-            className={`grid grid-cols-6 items-center justify-center gap-y-6 gap-x-4 max-w-3xl mb-4`}>
+            className={`grid grid-cols-6 items-center justify-center gap-y-6 gap-x-4 max-w-4xl mb-4`}
+          >
             {caloriesCalculator.map((item, index) => {
               switch (index) {
                 case 0:
@@ -92,7 +89,11 @@ export default function CaloriesCalcu() {
                           </span>
                           <div className="flex gap-4 lg:px-8">
                             <div className="form-control flex flex-col justify-center items-center">
-                              <img className="lg:w-20 w-16" src={iconBoy} alt="" />
+                              <img
+                                className="lg:w-20 w-16"
+                                src={iconBoy}
+                                alt=""
+                              />
                               <label className="label cursor-pointer space-x-2">
                                 <input
                                   type="radio"
@@ -133,7 +134,7 @@ export default function CaloriesCalcu() {
                         </div>
                       </Card>
                     </div>
-                  )
+                  );
                 case 1:
                 case 2:
                 case 3:
@@ -157,7 +158,7 @@ export default function CaloriesCalcu() {
                         {...item}
                       />
                     </div>
-                  )
+                  );
                 case 4:
                   return (
                     <div className="lg:col-span-3 col-span-full">
@@ -226,13 +227,16 @@ export default function CaloriesCalcu() {
                         </div>
                       </div>
                     </div>
-                  )
+                  );
                 default:
-                  return null
+                  return null;
               }
             })}
           </div>
-          <button onClick={onCalculate} className="btn btn-secondary w-full">
+          <button
+            onClick={onCalculate}
+            className="btn px-6 py-2.5 rounded-xl text-white bg-black flex justify-center items-center text-base font-semibold transition-all duration-300 hover:bg-gray-800 w-full"
+          >
             Saya menghitung!
           </button>
         </form>
@@ -267,5 +271,5 @@ export default function CaloriesCalcu() {
         </dialog>
       )}
     </div>
-  )
+  );
 }

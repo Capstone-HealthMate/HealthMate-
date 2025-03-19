@@ -40,142 +40,72 @@ export default function Navbar2() {
     setUser(null);
     navigate("/");
   };
+
   return (
-    <div>
-      <div className="navbar lg:px-8 px-4 bg-slate-950 text-white ">
-        <div className="navbar-start">
-      
-          <div className="flex items-center space-x-2">
-            <img src={icon} alt="Logo" className="w-7" />
-            <span className="text-xl font-medium text-white">HealthMate</span>
-          </div>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              {" "}
-              <Link to="/" className="hover:text-gray-300">
-                Home
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link to="/about" className="hover:text-gray-300">
-                About
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link to="/article" className="hover:text-gray-300">
-                Article
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link to="/discuss" className="hover:text-gray-300">
-                Discuss
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="navbar-end ">
-          <div className="dropdown relative">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] shadow bg-base-100 rounded-box w-44 absolute right-0 text-black">
-              <li>
-                {" "}
-                <Link to="/" className="hover:text-gray-300">
-                  Home
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link to="/about" className="hover:text-gray-300">
-                  About
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link to="/article" className="hover:text-gray-300">
-                  Article
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link to="/disscus" className="hover:text-gray-300">
-                  Disscus
-                </Link>
-              </li>
-              <li className="space-y-2">
-                {user ? (
-                  <button
-                    onClick={handleLogout}
-                    className="btn bg-red-500 text-white rounded-full hover:bg-red-600">
-                    Logout
-                  </button>
-                ) : (
-                  <>
-                  
-                    <Link
-                      to="/register"
-                      className="btn bg-blue-300 text-gray-900 hover:bg-blue-400">
-                      Sign Up
-                    </Link>
-                    <Link
-                      to="/login"
-                      className="btn bg-white text-gray-900  hover:bg-gray-200">
-                      Login
-                    </Link>
+    <header className="relative py-2 md:py-4 bg-white shadow-md">
+      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="flex items-center space-x-2">
+            <img src={icon} alt="Logo" className="w-8 h-8" />
+            <span className="text-lg font-semibold text-gray-900">
+              HealthMate
+            </span>
+          </Link>
 
+          <nav className="hidden lg:flex lg:items-center lg:space-x-8">
+            <Link
+              to="/"
+              className="text-base font-medium text-gray-900 hover:text-opacity-50"
+            >
+              Home
+            </Link>
+            <Link
+              to="/about"
+              className="text-base font-medium text-gray-900 hover:text-opacity-50"
+            >
+              About
+            </Link>
+            <Link
+              to="/article"
+              className="text-base font-medium text-gray-900 hover:text-opacity-50"
+            >
+              Article
+            </Link>
+            <Link
+              to="/discuss"
+              className="text-base font-medium text-gray-900 hover:text-opacity-50"
+            >
+              Discuss
+            </Link>
+          </nav>
 
-                  </>
-                )}
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-x-4 hidden lg:flex">
+          <div className="hidden lg:flex lg:items-center lg:space-x-4">
             {user ? (
               <button
                 onClick={handleLogout}
-                className="btn bg-red-500 text-white rounded-full hover:bg-red-600">
+                className="px-5 py-2 text-base font-semibold text-white bg-red-500 rounded-xl hover:bg-red-600"
+              >
                 Logout
               </button>
             ) : (
               <>
                 <Link
                   to="/register"
-                  className="btn bg-blue-300 text-gray-900 hover:bg-blue-400">
+                  className="px-5 py-2 text-base font-semibold text-gray-900 border border-gray-900 rounded-xl hover:bg-gray-900 hover:text-white transition duration-300 ease-in-out"
+                >
                   Sign Up
                 </Link>
                 <Link
                   to="/login"
-                  className="btn bg-white text-gray-900  hover:bg-gray-200">
+                  className="text-base font-medium text-gray-900 hover:text-opacity-50"
+                >
                   Login
                 </Link>
-
-                
               </>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
