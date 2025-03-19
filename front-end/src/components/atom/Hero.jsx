@@ -35,7 +35,7 @@ const Hero = () => {
         <div className="mt-10 md:mt-12">
           <img
             className="object-cover object-top w-full h-auto mx-auto scale-150 2xl:max-w-screen-2xl xl:scale-100"
-            src="./He.svg"
+            src="./Hero.svg"
             alt="Healthmate Illustration"
           />
         </div>
